@@ -37,7 +37,7 @@ module.exports = grammar({
 
     null: $ => 'null',
 
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_:]*\??/,
+    identifier: $ => seq(/[a-zA-Z_][a-zA-Z0-9_:]*/, optional('?')),
 
     operator: $ => /[+\-*\/%<>=!&|]+/,
 

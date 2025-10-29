@@ -15,6 +15,9 @@
 ; Operators
 (operator) @operator
 
+; Punctuation
+"?" @punctuation.special
+
 ; Function definitions
 (sexp (kw_fn) (identifier) @function)
 
