@@ -1,17 +1,48 @@
-/**
- * @file A TreeSitter syntax highlighter for the Liss programming language
- * @author osdrv
- * @license MIT
- */
-
-/// <reference types="tree-sitter-cli/dsl" />
-// @ts-check
-
 module.exports = grammar({
-  name: "liss",
+  name: 'liss',
+
+  extras: $ => [
+    /\s/,
+  ],
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: ($) => "hello",
-  },
+    source_file: $ => repeat($._expression),
+
+    _expression: $ => choice(
+      $.sexp,
+      $.list,
+      $.number,
+      $.string,
+      $.boolean,
+      $.null,
+      $.identifier,
+      $.operator,
+    ),
+
+    sexp: $ => choice(
+      seq('(', $.kw_fn, $.identifier, $.list, repeat($._expression), ')'),
+      seq('(', $.kw_let, $.identifier, $._expression, ')'),
+      seq('(', $.kw_cond, $._expression, $._expression, optional($._expression), ')'),
+      prec(1, seq('(', choice($.identifier, $.operator), repeat($._expression), ')')),
+      seq('(', repeat($._expression), ')')
+    ),
+
+    list: $ => seq('[', repeat($._expression), ']'),
+
+    number: $ => /[+-]?\d+(\.\d+)?([eE][+-]?\d+)?/,
+
+    string: $ => /"[^"]*"/,
+
+    boolean: $ => choice('true', 'false'),
+
+    null: $ => 'null',
+
+    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_:]*\??/,
+
+    operator: $ => /[+\-*\/%<>=!&|]+/,
+
+    kw_fn: $ => 'fn',
+    kw_let: $ => 'let',
+    kw_cond: $ => 'cond'
+  }
 });
