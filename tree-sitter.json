@@ -1,0 +1,38 @@
+{
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
+  "grammars": [
+    {
+      "name": "liss",
+      "camelcase": "Liss",
+      "title": "Liss",
+      "scope": "source.liss",
+      "file-types": [
+        "liss"
+      ],
+      "injection-regex": "^liss$",
+      "class-name": "TreeSitterLiss"
+    }
+  ],
+  "metadata": {
+    "version": "0.1.0",
+    "license": "MIT",
+    "description": "A TreeSitter syntax highlighter for the Liss programming language",
+    "authors": [
+      {
+        "name": "osdrv"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/osdrv/tree-sitter-liss"
+    }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
+  }
+}
