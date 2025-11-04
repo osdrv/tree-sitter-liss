@@ -1,11 +1,12 @@
 module.exports = grammar({
   name: "liss",
 
-  extras: ($) => [/\s/, $.comment],
+  extras: ($) => [/\s/, $.comment, /\n/],
 
   rules: {
-    comment: (_) => /;.*\n?/,
     source_file: ($) => repeat($._expression),
+
+    comment: ($) => /;[^\n]*/,
 
     _expression: ($) =>
       choice(
@@ -16,6 +17,7 @@ module.exports = grammar({
         $.boolean,
         $.null,
         $.identifier,
+        $.qualified_identifier,
         $.operator,
       ),
 
@@ -42,7 +44,7 @@ module.exports = grammar({
           1,
           seq(
             "(",
-            choice($.identifier, $.operator),
+            choice($.identifier, $.qualified_identifier, $.operator),
             repeat($._expression),
             ")",
           ),
@@ -60,8 +62,10 @@ module.exports = grammar({
 
     null: ($) => "null",
 
-    identifier: ($) =>
-      seq(/[a-zA-Z_][a-zA-Z0-9_]:?[a-zA-Z0-9_]*/, optional("?")),
+    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*\??/,
+
+    qualified_identifier: ($) =>
+      seq(field("module", $.identifier), ":", field("function", $.identifier)),
 
     operator: ($) => /[+\-*\/%<>=!&|]+/,
 

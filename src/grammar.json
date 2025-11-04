@@ -2,16 +2,16 @@
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "liss",
   "rules": {
-    "comment": {
-      "type": "PATTERN",
-      "value": ";.*\\n?"
-    },
     "source_file": {
       "type": "REPEAT",
       "content": {
         "type": "SYMBOL",
         "name": "_expression"
       }
+    },
+    "comment": {
+      "type": "PATTERN",
+      "value": ";[^\\n]*"
     },
     "_expression": {
       "type": "CHOICE",
@@ -43,6 +43,10 @@
         {
           "type": "SYMBOL",
           "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qualified_identifier"
         },
         {
           "type": "SYMBOL",
@@ -215,6 +219,10 @@
                   },
                   {
                     "type": "SYMBOL",
+                    "name": "qualified_identifier"
+                  },
+                  {
+                    "type": "SYMBOL",
                     "name": "operator"
                   }
                 ]
@@ -301,23 +309,31 @@
       "value": "null"
     },
     "identifier": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*\\??"
+    },
+    "qualified_identifier": {
       "type": "SEQ",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[a-zA-Z_][a-zA-Z0-9_]:?[a-zA-Z0-9_]*"
+          "type": "FIELD",
+          "name": "module",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "?"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "FIELD",
+          "name": "function",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         }
       ]
     },
@@ -350,6 +366,10 @@
     {
       "type": "SYMBOL",
       "name": "comment"
+    },
+    {
+      "type": "PATTERN",
+      "value": "\\n"
     }
   ],
   "conflicts": [],
