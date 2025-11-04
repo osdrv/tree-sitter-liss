@@ -1,48 +1,75 @@
 module.exports = grammar({
-  name: 'liss',
+  name: "liss",
 
-  extras: $ => [
+  extras: ($) => [
     /\s/,
+    $.comment,
   ],
 
   rules: {
-    source_file: $ => repeat($._expression),
+    comment: _ => /;.*\n?/,
+    source_file: ($) => repeat($._expression),
 
-    _expression: $ => choice(
-      $.sexp,
-      $.list,
-      $.number,
-      $.string,
-      $.boolean,
-      $.null,
-      $.identifier,
-      $.operator,
-    ),
+    _expression: ($) =>
+      choice(
+        $.sexp,
+        $.list,
+        $.number,
+        $.string,
+        $.boolean,
+        $.null,
+        $.identifier,
+        $.operator,
+      ),
 
-    sexp: $ => choice(
-      seq('(', $.kw_fn, $.identifier, $.list, repeat($._expression), ')'),
-      seq('(', $.kw_let, $.identifier, $._expression, ')'),
-      seq('(', $.kw_cond, $._expression, $._expression, optional($._expression), ')'),
-      prec(1, seq('(', choice($.identifier, $.operator), repeat($._expression), ')')),
-      seq('(', repeat($._expression), ')')
-    ),
+    sexp: ($) =>
+      choice(
+        seq("(", $.kw_fn, $.identifier, $.list, repeat($._expression), ")"),
+        seq("(", $.kw_let, $.identifier, $._expression, ")"),
+        seq(
+          "(",
+          $.kw_import,
+          $.string,
+          optional(seq("[", repeat($.string), "]")),
+          ")",
+        ),
+        seq(
+          "(",
+          $.kw_cond,
+          $._expression,
+          $._expression,
+          optional($._expression),
+          ")",
+        ),
+        prec(
+          1,
+          seq(
+            "(",
+            choice($.identifier, $.operator),
+            repeat($._expression),
+            ")",
+          ),
+        ),
+        seq("(", repeat($._expression), ")"),
+      ),
 
-    list: $ => seq('[', repeat($._expression), ']'),
+    list: ($) => seq("[", repeat($._expression), "]"),
 
-    number: $ => /[+-]?\d+(\.\d+)?([eE][+-]?\d+)?/,
+    number: ($) => /[+-]?\d+(\.\d+)?([eE][+-]?\d+)?/,
 
-    string: $ => /"[^"]*"/,
+    string: ($) => /"[^"]*"/,
 
-    boolean: $ => choice('true', 'false'),
+    boolean: ($) => choice("true", "false"),
 
-    null: $ => 'null',
+    null: ($) => "null",
 
-    identifier: $ => /[a-zA-Z_][a-zA-Z0-9_:]*\??/,
+    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_:]*\??/,
 
-    operator: $ => /[+\-*\/%<>=!&|]+/,
+    operator: ($) => /[+\-*\/%<>=!&|]+/,
 
-    kw_fn: $ => 'fn',
-    kw_let: $ => 'let',
-    kw_cond: $ => 'cond'
-  }
+    kw_fn: ($) => "fn",
+    kw_let: ($) => "let",
+    kw_cond: ($) => "cond",
+    kw_import: ($) => "import",
+  },
 });
