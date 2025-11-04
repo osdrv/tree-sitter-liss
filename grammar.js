@@ -62,7 +62,12 @@ module.exports = grammar({
 
     null: ($) => "null",
 
-    identifier: ($) => /[a-zA-Z_][a-zA-Z0-9_]*\??/,
+    identifier: $ => seq(
+      $._identifier_base,
+      optional($._predicate_marker)
+    ),
+    _identifier_base: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    _predicate_marker: $ => '?',
 
     qualified_identifier: ($) =>
       seq(field("module", $.identifier), ":", field("function", $.identifier)),

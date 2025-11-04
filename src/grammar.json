@@ -309,8 +309,33 @@
       "value": "null"
     },
     "identifier": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_identifier_base"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_predicate_marker"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "_identifier_base": {
       "type": "PATTERN",
-      "value": "[a-zA-Z_][a-zA-Z0-9_]*\\??"
+      "value": "[a-zA-Z_][a-zA-Z0-9_]*"
+    },
+    "_predicate_marker": {
+      "type": "STRING",
+      "value": "?"
     },
     "qualified_identifier": {
       "type": "SEQ",

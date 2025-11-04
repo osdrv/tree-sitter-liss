@@ -11,13 +11,13 @@
 (null) @constant
 
 ; Identifiers
-(identifier) @variable
+(identifier
+  (_identifier_base) @variable)
+(identifier
+  (_predicate_marker) @punctuation.special)
 
 ; Operators
 (operator) @operator
-
-; Punctuation
-"?" @punctuation.special
 
 ; Function definitions
 (sexp (kw_fn) (identifier) @function)
