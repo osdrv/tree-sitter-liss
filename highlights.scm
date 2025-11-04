@@ -2,7 +2,7 @@
 (kw_fn) @keyword
 (kw_let) @keyword
 (kw_cond) @keyword
-(kb_import) @keyword
+(kw_import) @keyword
 
 ; Literals
 (string) @string
@@ -24,6 +24,15 @@
 
 ; Function calls
 (sexp (identifier) @function)
+
+; For qualified identifiers like module:name
+(qualified_identifier
+  module: (identifier) @namespace)
+
+; For function calls with qualified identifiers like (module:name ...)
+(sexp
+  (qualified_identifier
+    function: (identifier) @function))
 
 ; Comments
 (comment) @comment
