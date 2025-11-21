@@ -270,6 +270,27 @@
               "value": "("
             },
             {
+              "type": "SYMBOL",
+              "name": "kw_raise"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
               "type": "REPEAT",
               "content": {
                 "type": "SYMBOL",
@@ -406,6 +427,10 @@
     "kw_as": {
       "type": "STRING",
       "value": "as"
+    },
+    "kw_raise": {
+      "type": "STRING",
+      "value": "raise!"
     }
   },
   "extras": [

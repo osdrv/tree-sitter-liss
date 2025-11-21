@@ -50,6 +50,7 @@ module.exports = grammar({
             ")",
           ),
         ),
+        seq("(", $.kw_raise, $._expression, ")"),
         seq("(", repeat($._expression), ")"),
       ),
 
@@ -77,5 +78,6 @@ module.exports = grammar({
     kw_cond: ($) => "cond",
     kw_import: ($) => "import",
     kw_as: ($) => "as",
+    kw_raise: ($) => "raise!",
   },
 });
