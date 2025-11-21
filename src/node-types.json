@@ -99,6 +99,10 @@
           "named": true
         },
         {
+          "type": "kw_as",
+          "named": true
+        },
+        {
           "type": "kw_cond",
           "named": true
         },
@@ -225,6 +229,10 @@
   {
     "type": "false",
     "named": false
+  },
+  {
+    "type": "kw_as",
+    "named": true
   },
   {
     "type": "kw_cond",

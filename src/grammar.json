@@ -158,6 +158,27 @@
               ]
             },
             {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "kw_as"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
               "type": "STRING",
               "value": ")"
             }
@@ -381,6 +402,10 @@
     "kw_import": {
       "type": "STRING",
       "value": "import"
+    },
+    "kw_as": {
+      "type": "STRING",
+      "value": "as"
     }
   },
   "extras": [

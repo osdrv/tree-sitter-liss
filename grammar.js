@@ -30,6 +30,7 @@ module.exports = grammar({
           $.kw_import,
           $.string,
           optional(seq("[", repeat($.string), "]")),
+          optional(seq($.kw_as, $.identifier)),
           ")",
         ),
         seq(
@@ -62,12 +63,9 @@ module.exports = grammar({
 
     null: ($) => "null",
 
-    identifier: $ => seq(
-      $._identifier_base,
-      optional($._predicate_marker)
-    ),
-    _identifier_base: $ => /[a-zA-Z_][a-zA-Z0-9_]*/,
-    _predicate_marker: $ => '?',
+    identifier: ($) => seq($._identifier_base, optional($._predicate_marker)),
+    _identifier_base: ($) => /[a-zA-Z_][a-zA-Z0-9_]*/,
+    _predicate_marker: ($) => "?",
 
     qualified_identifier: ($) =>
       seq(field("module", $.identifier), ":", field("function", $.identifier)),
@@ -78,5 +76,6 @@ module.exports = grammar({
     kw_let: ($) => "let",
     kw_cond: ($) => "cond",
     kw_import: ($) => "import",
+    kw_as: ($) => "as",
   },
 });
