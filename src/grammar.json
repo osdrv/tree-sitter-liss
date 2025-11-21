@@ -274,10 +274,6 @@
               "name": "kw_raise"
             },
             {
-              "type": "STRING",
-              "value": "!"
-            },
-            {
               "type": "SYMBOL",
               "name": "_expression"
             },
@@ -434,7 +430,7 @@
     },
     "kw_raise": {
       "type": "STRING",
-      "value": "raise"
+      "value": "raise!"
     }
   },
   "extras": [

@@ -3,6 +3,8 @@
 (kw_let) @keyword
 (kw_cond) @keyword
 (kw_import) @keyword
+(kw_as) @keyword
+(kw_raise) @keyword
 
 ; Literals
 (string) @string
