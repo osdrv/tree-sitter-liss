@@ -34,7 +34,7 @@ enum ts_symbol_identifiers {
   anon_sym_QMARK = 12,
   anon_sym_COLON = 13,
   sym_operator = 14,
-  anon_sym_STAR = 15,
+  sym_match_all = 15,
   sym_kw_fn = 16,
   sym_kw_let = 17,
   sym_kw_cond = 18,
@@ -72,7 +72,7 @@ static const char * const ts_symbol_names[] = {
   [anon_sym_QMARK] = "\?",
   [anon_sym_COLON] = ":",
   [sym_operator] = "operator",
-  [anon_sym_STAR] = "*",
+  [sym_match_all] = "match_all",
   [sym_kw_fn] = "kw_fn",
   [sym_kw_let] = "kw_let",
   [sym_kw_cond] = "kw_cond",
@@ -110,7 +110,7 @@ static const TSSymbol ts_symbol_map[] = {
   [anon_sym_QMARK] = anon_sym_QMARK,
   [anon_sym_COLON] = anon_sym_COLON,
   [sym_operator] = sym_operator,
-  [anon_sym_STAR] = anon_sym_STAR,
+  [sym_match_all] = sym_match_all,
   [sym_kw_fn] = sym_kw_fn,
   [sym_kw_let] = sym_kw_let,
   [sym_kw_cond] = sym_kw_cond,
@@ -193,9 +193,9 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = true,
     .named = true,
   },
-  [anon_sym_STAR] = {
+  [sym_match_all] = {
     .visible = true,
-    .named = false,
+    .named = true,
   },
   [sym_kw_fn] = {
     .visible = true,
@@ -972,7 +972,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == '|') ADVANCE(91);
       END_STATE();
     case 92:
-      ACCEPT_TOKEN(anon_sym_STAR);
+      ACCEPT_TOKEN(sym_match_all);
       if (lookahead == '!' ||
           lookahead == '%' ||
           lookahead == '&' ||
@@ -1126,7 +1126,7 @@ static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
     [anon_sym_QMARK] = ACTIONS(1),
     [anon_sym_COLON] = ACTIONS(1),
     [sym_operator] = ACTIONS(1),
-    [anon_sym_STAR] = ACTIONS(1),
+    [sym_match_all] = ACTIONS(1),
     [sym_kw_fn] = ACTIONS(1),
     [sym_kw_let] = ACTIONS(1),
     [sym_kw_cond] = ACTIONS(1),
@@ -1436,7 +1436,7 @@ static const uint16_t ts_small_parse_table[] = {
     ACTIONS(99), 3,
       sym_null,
       sym_operator,
-      anon_sym_STAR,
+      sym_match_all,
     STATE(15), 5,
       sym__expression,
       sym_sexp,

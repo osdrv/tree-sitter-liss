@@ -230,6 +230,10 @@
           "named": true
         },
         {
+          "type": "match_all",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -262,10 +266,6 @@
   },
   {
     "type": ")",
-    "named": false
-  },
-  {
-    "type": "*",
     "named": false
   },
   {
@@ -319,6 +319,10 @@
   },
   {
     "type": "kw_switch",
+    "named": true
+  },
+  {
+    "type": "match_all",
     "named": true
   },
   {

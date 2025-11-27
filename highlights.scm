@@ -5,12 +5,14 @@
 (kw_import) @keyword
 (kw_as) @keyword
 (kw_raise) @keyword
+(kw_switch) @keyword
 
 ; Literals
 (string) @string
 (number) @number
 (boolean) @boolean
 (null) @constant
+(match_all) @constant
 
 ; Identifiers
 (identifier

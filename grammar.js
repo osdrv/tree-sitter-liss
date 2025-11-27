@@ -74,8 +74,10 @@ module.exports = grammar({
 
     operator: ($) => /[+\-*\/%<>=!&|]+/,
 
+    match_all: ($) => "*",
+
     switch_case: ($) =>
-      seq("[", choice("*", $._expression), $._expression, "]"),
+      seq("[", choice($.match_all, $._expression), $._expression, "]"),
 
     kw_fn: ($) => "fn",
     kw_let: ($) => "let",
