@@ -222,6 +222,34 @@
           ]
         },
         {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "kw_switch"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SYMBOL",
+                "name": "switch_case"
+              }
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
           "type": "PREC",
           "value": 1,
           "content": {
@@ -408,6 +436,36 @@
       "type": "PATTERN",
       "value": "[+\\-*\\/%<>=!&|]+"
     },
+    "switch_case": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_expression"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
     "kw_fn": {
       "type": "STRING",
       "value": "fn"
@@ -431,6 +489,10 @@
     "kw_raise": {
       "type": "STRING",
       "value": "raise!"
+    },
+    "kw_switch": {
+      "type": "STRING",
+      "value": "switch"
     }
   },
   "extras": [

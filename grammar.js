@@ -41,6 +41,7 @@ module.exports = grammar({
           optional($._expression),
           ")",
         ),
+        seq("(", $.kw_switch, $._expression, repeat($.switch_case), ")"),
         prec(
           1,
           seq(
@@ -73,11 +74,15 @@ module.exports = grammar({
 
     operator: ($) => /[+\-*\/%<>=!&|]+/,
 
+    switch_case: ($) =>
+      seq("[", choice("*", $._expression), $._expression, "]"),
+
     kw_fn: ($) => "fn",
     kw_let: ($) => "let",
     kw_cond: ($) => "cond",
     kw_import: ($) => "import",
     kw_as: ($) => "as",
     kw_raise: ($) => "raise!",
+    kw_switch: ($) => "switch",
   },
 });
