@@ -59,7 +59,7 @@ module.exports = grammar({
 
     number: ($) => /[+-]?\d+(\.\d+)?([eE][+-]?\d+)?/,
 
-    string: ($) => /"[^"]*"/,
+    string: ($) => /"(\\.|[^"\\])*"/,
 
     boolean: ($) => choice("true", "false"),
 

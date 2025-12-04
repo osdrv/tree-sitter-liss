@@ -359,7 +359,7 @@
     },
     "string": {
       "type": "PATTERN",
-      "value": "\"[^\"]*\""
+      "value": "\"(\\\\.|[^\"\\\\])*\""
     },
     "boolean": {
       "type": "CHOICE",
